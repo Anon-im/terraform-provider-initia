@@ -69,9 +69,15 @@ func resourceTendermintNodeKeyCreate(ctx context.Context, d *schema.ResourceData
 		return diag.FromErr(err)
 	}
 
-	d.Set("node_id", nodeId)
-	d.Set("node_key", privKeyBase64)
-	d.Set("node_key_json", string(nodeKeyJSONString))
+	if err := d.Set("node_id", nodeId); err != nil {
+		return diag.FromErr(err)
+	}
+	if err := d.Set("node_key", privKeyBase64); err != nil {
+		return diag.FromErr(err)
+	}
+	if err := d.Set("node_key_json", string(nodeKeyJSONString)); err != nil {
+		return diag.FromErr(err)
+	}
 
 	d.SetId(nodeId)
 
